@@ -13,14 +13,10 @@ mongoose.connect("mongodb+srv://pritam:2CQZ1T2RlNig9zIV@mongooselp.o6gtn.mongodb
 // await newUser.save();
 
 const newUser = await User.create({
-    name : "Pritam",
-    email : "vikas1@gmail.com",
+    name : "Vikas",
+    email : "vikas3@gmail.com",
     age : 28,
     hobbies : ["blockchain", "cats veti"]
 });
 
-newUser.email = "vikas3@gmail.com";
-await newUser.save();
-
-// const firstUser = await User.find({name : "Pritam" });
-// console.log(firstUser);
+//await User.deleteMany({ age : 28});
