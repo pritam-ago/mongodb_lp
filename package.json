@@ -4,8 +4,7 @@
   "description": "Contains practice programs regarding my mongoDB learning progress.",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
-    "start": "node api/index.js"
+    "dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
