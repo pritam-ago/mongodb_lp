@@ -1,22 +1,35 @@
-import mongoose from "mongoose";
-import User from "./models/User.js";
+const express = require('express');
+const mongoose = require('mongoose');
+const ShortUrl = require('./models/shortUrl');
+const app = express();
+
+const port = process.env.PORT || 3000;
+
+app.set('view engine', 'ejs');
+app.use(express.urlencoded({ extended : false }));
 
 mongoose.connect("mongodb+srv://pritam:2CQZ1T2RlNig9zIV@mongooselp.o6gtn.mongodb.net/mongooseTesting?retryWrites=true&w=majority");
 
-// const newUser = new User({
-//     name : "Vikas",
-//     email : "pritam@gmail.com",
-//     age : 18,
-//     hobbies : ["coding", "being alive"]
-// });
-
-// await newUser.save();
-
-const newUser = await User.create({
-    name : "Vikas",
-    email : "vikas3@gmail.com",
-    age : 28,
-    hobbies : ["blockchain", "cats veti"]
+app.get('/', async (req, res) => {
+    const shortUrls = await ShortUrl.find();
+    res.render('index', { shortUrls: shortUrls });
+})
+  
+app.post('/shortUrls', async (req, res) => {
+    await ShortUrl.create({ full: req.body.fullUrl });
+  
+    res.redirect('/');
+});
+  
+app.get('/:shortUrl', async (req, res) => {
+    const shortUrl = await ShortUrl.findOne({ short: req.params.shortUrl });
+    if (shortUrl == null) return res.sendStatus(404);
+  
+    shortUrl.clicks++;
+    shortUrl.save();
+  
+    res.redirect(shortUrl.full);
 });
 
-//await User.deleteMany({ age : 28});
+app.listen(port, ()=> console.log(`This mf is running good on port ${port}`));
+
