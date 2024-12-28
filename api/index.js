@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const ShortUrl = require('./models/shortUrl');
+const ShortUrl = require('../models/shortUrl');
 const app = express();
 
 const port = process.env.PORT || 3000;
@@ -33,3 +33,4 @@ app.get('/:shortUrl', async (req, res) => {
 
 app.listen(port, ()=> console.log(`This mf is running good on port ${port}`));
 
+module.exports = app;
