@@ -1,3 +1,5 @@
+const dotenv = require("dotenv");
+dotenv.config();
 const express = require('express');
 const mongoose = require('mongoose');
 const ShortUrl = require('./models/shortUrl');
@@ -8,7 +10,7 @@ const port = process.env.PORT || 3000;
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended : false }));
 
-mongoose.connect("mongodb+srv://pritam:2CQZ1T2RlNig9zIV@mongooselp.o6gtn.mongodb.net/mongooseTesting?retryWrites=true&w=majority");
+mongoose.connect(process.env.MONGODB_URL);
 
 app.get('/', async (req, res) => {
     const shortUrls = await ShortUrl.find();
